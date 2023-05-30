@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/modules/pokemon/domain/services/pokemon_service.dart';
 import 'package:pokedex_app/modules/pokemon/domain/utils/format_output.dart';
@@ -9,6 +8,7 @@ import '../../domain/model/pokemon.dart';
 import '../widgets/generic_futurebuilder.dart';
 import '../widgets/wrap_pokemon_abilities_list_widget.dart';
 import '../widgets/wrap_pokemon_types_list_widget.dart';
+
 /// Página de detalhes do Pokémon
 class DetailsPage extends StatefulWidget {
   final String pokemonName;
@@ -43,6 +43,12 @@ class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.arrow_back_outlined),
+        onPressed: () {
+          Navigator.of(context).pop(context);
+        },
+      ),
       appBar: const PokemonAppBar(title: 'Informações'),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -156,19 +162,6 @@ class _DetailsPageState extends State<DetailsPage> {
                     },
                   ),
                 ],
-              ),
-            ),
-            Positioned(
-              bottom: 16,
-              right: 16,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  textStyle: Theme.of(context).textTheme.bodySmall,
-                ),
-                child: const Text('Voltar'),
               ),
             ),
           ],
