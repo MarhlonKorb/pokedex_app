@@ -1,4 +1,3 @@
-
 class Pokemon {
   final String name;
   final int number;
@@ -20,7 +19,7 @@ class Pokemon {
     final name = json['name'];
     final number = json['id'];
     final height = json['height'] / 10.0;
-    final weight = json['weight'] / 10.0; 
+    final weight = json['weight'] / 10.0;
     final types = (json['types'] as List<dynamic>)
         .map((type) => type['type']['name'].toString())
         .toList();
@@ -37,5 +36,4 @@ class Pokemon {
       abilities: abilities,
     );
   }
-
 }

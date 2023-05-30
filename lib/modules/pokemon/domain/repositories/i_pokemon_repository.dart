@@ -1,6 +1,6 @@
 
 import '../model/pokemon.dart';
-
+/// Interface da entidade Pokémon
 abstract class IPokemonRepository {
   
   /// Retorna lista de [pokemon]

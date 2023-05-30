@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:pokedex_app/modules/pokemon/domain/services/pokemon_service.dart';
 import 'package:pokedex_app/modules/pokemon/domain/utils/format_output.dart';
@@ -8,7 +9,7 @@ import '../../domain/model/pokemon.dart';
 import '../widgets/generic_futurebuilder.dart';
 import '../widgets/wrap_pokemon_abilities_list_widget.dart';
 import '../widgets/wrap_pokemon_types_list_widget.dart';
-
+/// Página de detalhes do Pokémon
 class DetailsPage extends StatefulWidget {
   final String pokemonName;
 
@@ -30,6 +31,13 @@ class _DetailsPageState extends State<DetailsPage> {
   void dispose() {
     super.dispose();
     imageCache.clear();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScopeNode currentFocus = FocusScope.of(context);
+      if (!currentFocus.hasPrimaryFocus) {
+        currentFocus.unfocus();
+      }
+    });
   }
 
   @override
@@ -79,6 +87,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Nome: ${FormatOutput().capitalizeFirstLetter(pokemon!.name)}',
                                     style: TextStyle(
+                                        fontSize: 15,
                                         fontStyle: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -88,6 +97,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Número: ${pokemon.number.toString()}',
                                     style: TextStyle(
+                                        fontSize: 15,
                                         fontStyle: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -97,6 +107,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Habilidades:',
                                     style: TextStyle(
+                                        fontSize: 15,
                                         fontStyle: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -108,6 +119,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Tipos:',
                                     style: TextStyle(
+                                        fontSize: 15,
                                         fontStyle: Theme.of(context)
                                             .textTheme
                                             .displayMedium!
@@ -118,6 +130,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Peso: ${pokemon.weight.toString()}Kg',
                                     style: TextStyle(
+                                        fontSize: 11,
                                         fontStyle: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -127,6 +140,7 @@ class _DetailsPageState extends State<DetailsPage> {
                                   Text(
                                     'Altura: ${pokemon.height.toString()}m',
                                     style: TextStyle(
+                                      fontSize: 11,
                                       fontStyle: Theme.of(context)
                                           .textTheme
                                           .bodySmall!

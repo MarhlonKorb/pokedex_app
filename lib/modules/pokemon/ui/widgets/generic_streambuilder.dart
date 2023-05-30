@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+/// StreamBuilder genérico
 class GenericStreamBuilder<T> extends StatefulWidget {
   final Stream<T> stream;
   final Widget Function(BuildContext, AsyncSnapshot<T>) builder;

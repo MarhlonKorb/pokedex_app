@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+/// AppBar do aplicativo
 class PokemonAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
 
@@ -11,9 +11,7 @@ class PokemonAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
         title: Text(
           title,
-          style: GoogleFonts.pressStart2p(
-            textStyle: const TextStyle(fontSize: 18.0),
-          ),
+          style: const TextStyle(fontSize: 17.0),
         ),
         centerTitle: true,
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor);

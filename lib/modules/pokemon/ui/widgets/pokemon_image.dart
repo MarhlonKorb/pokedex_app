@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pokedex_app/modules/pokemon/ui/widgets/generic_futurebuilder.dart';
 import '../../domain/services/pokemon_service.dart';
 
-class PokemonImage extends StatefulWidget {
+/// Carrega ícone da imagem do pokémon
+class PokemonIconImage extends StatefulWidget {
   final String? pokemonName;
   final String? urlImage;
 
-  const PokemonImage({super.key, this.pokemonName, this.urlImage});
+  const PokemonIconImage({super.key, this.pokemonName, this.urlImage});
 
   @override
-  PokemonImageState createState() => PokemonImageState();
+  PokemonIconImageState createState() => PokemonIconImageState();
 }
 
-class PokemonImageState extends State<PokemonImage> {
+class PokemonIconImageState extends State<PokemonIconImage> {
   late Future<String> _imageUrlFuture;
   final pokemonService = PokemonService();
 
@@ -23,13 +25,11 @@ class PokemonImageState extends State<PokemonImage> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<String>(
+    return GenericFutureBuilder<String>(
       future: _imageUrlFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return const Text('Erro ao carregar a imagem do Pokémon');
         }
           final imageUrl = snapshot.data!;
           return ClipRRect(

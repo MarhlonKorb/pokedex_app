@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:pokedex_app/modules/pokemon/ui/widgets/generic_futurebuilder.dart';
 import '../../domain/services/pokemon_service.dart';
 
+/// Hero que realiza animação da imagem na transição entre telas
 class PokemonHero extends StatefulWidget {
   final String pokemonName;
   final double? width;
@@ -27,18 +28,9 @@ class _PokemonHeroState extends State<PokemonHero> {
     return Center(
       child: SizedBox(
         width: widget.width,
-        child: FutureBuilder(
+        child: GenericFutureBuilder<String>(
           future: _imageUrlFuture,
           builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text(
-                'Erro ao carregar imagem na tela de informações.',
-                style: GoogleFonts.pressStart2p(
-                  textStyle: const TextStyle(fontSize: 15),
-                  fontStyle: Theme.of(context).textTheme.bodySmall!.fontStyle
-                ),
-              );
-            }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             }

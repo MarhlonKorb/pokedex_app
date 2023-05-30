@@ -4,7 +4,7 @@ import 'package:pokedex_app/modules/pokemon/domain/repositories/i_pokemon_reposi
 import 'package:http/http.dart' as http;
 
 import '../../domain/model/pokemon.dart';
-
+/// Camada de acesso a dados para a API
 class PokemonRepositoryApi extends IPokemonRepository {
   final apiUrl = Environment.apiUrl;
 
@@ -22,7 +22,7 @@ class PokemonRepositoryApi extends IPokemonRepository {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       final imageUrl = jsonData['sprites']['front_default'];
-      return imageUrl;
+      return imageUrl ?? '';
     } else {
       throw Exception('Falha ao obter a imagem do Pokémon.');
     }

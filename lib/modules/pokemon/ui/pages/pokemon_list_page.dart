@@ -5,7 +5,7 @@ import 'package:pokedex_app/modules/pokemon/domain/utils/format_output.dart';
 import 'package:pokedex_app/modules/pokemon/ui/pages/details_page.dart';
 import '../../domain/model/pokemon_data_acess.dart';
 import '../widgets/pokemon_image.dart';
-
+/// Página de listagem de Pokémons
 class PokemonListPage extends StatefulWidget {
   const PokemonListPage({super.key});
 
@@ -109,7 +109,7 @@ class PokemonListPageState extends State<PokemonListPage> {
                           leading: SizedBox(
                             child: Column(
                               children: [
-                                PokemonImage(
+                                PokemonIconImage(
                                   pokemonName: pokemon.name!,
                                 ),
                               ],

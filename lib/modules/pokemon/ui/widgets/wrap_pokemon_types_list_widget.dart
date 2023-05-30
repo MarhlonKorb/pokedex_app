@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../domain/model/pokemon.dart';
-
+/// Monta widget responsável por apresentar a lista de tipos
 class WrapPokemonTypesWidget extends StatelessWidget {
   const WrapPokemonTypesWidget({
     super.key,
@@ -20,6 +20,7 @@ class WrapPokemonTypesWidget extends StatelessWidget {
               label: Text(
                 type,
                 style: TextStyle(
+                  fontSize: 11,
                     fontStyle:
                         Theme.of(context).textTheme.displayMedium!.fontStyle),
               ),

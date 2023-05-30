@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// FutureBuilder genérico
 class GenericFutureBuilder<T> extends FutureBuilder<T> {
   const GenericFutureBuilder({
     required Future<T> future,
