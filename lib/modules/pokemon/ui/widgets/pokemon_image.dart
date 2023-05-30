@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-
 import '../../domain/services/pokemon_service.dart';
 
 class PokemonImage extends StatefulWidget {
-  final String pokemonName;
+  final String? pokemonName;
+  final String? urlImage;
 
-  const PokemonImage({Key? key, required this.pokemonName}) : super(key: key);
+  const PokemonImage({super.key, this.pokemonName, this.urlImage});
 
   @override
   PokemonImageState createState() => PokemonImageState();
@@ -18,7 +18,7 @@ class PokemonImageState extends State<PokemonImage> {
   @override
   void initState() {
     super.initState();
-    _imageUrlFuture = pokemonService.getPokemonImageUrl(widget.pokemonName);
+    _imageUrlFuture = pokemonService.getPokemonImageUrl(widget.pokemonName!);
   }
 
   @override
@@ -35,8 +35,8 @@ class PokemonImageState extends State<PokemonImage> {
           return ClipRRect(
             child: Image.network(
               imageUrl,
-              width: MediaQuery.of(context).size.width * 0.13,
-              height: MediaQuery.of(context).size.height * 0.04,
+              width: MediaQuery.of(context).size.width * 0.18,
+              height: MediaQuery.of(context).size.height * 0.062,
               fit: BoxFit.cover,
             ),
           );

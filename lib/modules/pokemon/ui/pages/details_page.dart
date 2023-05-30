@@ -4,10 +4,15 @@ import 'package:pokedex_app/modules/pokemon/domain/utils/format_output.dart';
 import 'package:pokedex_app/modules/pokemon/ui/widgets/pokemon_app_bar.dart';
 import 'package:pokedex_app/modules/pokemon/ui/widgets/pokemon_hero.dart';
 
+import '../../domain/model/pokemon.dart';
+import '../widgets/generic_futurebuilder.dart';
+import '../widgets/wrap_pokemon_abilities_list_widget.dart';
+import '../widgets/wrap_pokemon_types_list_widget.dart';
+
 class DetailsPage extends StatefulWidget {
   final String pokemonName;
 
-  const DetailsPage({super.key, required this.pokemonName});
+  const DetailsPage({Key? key, required this.pokemonName}) : super(key: key);
 
   @override
   State<DetailsPage> createState() => _DetailsPageState();
@@ -22,165 +27,139 @@ class _DetailsPageState extends State<DetailsPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    imageCache.clear();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PokemonAppBar(title: 'Informações'),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FutureBuilder(
-                future: pokemonService.getPokemon(widget.pokemonName),
-                builder: (context, snapshot) {
-                  final pokemon = snapshot.data;
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (snapshot.hasError) {
-                    return const Text('Erro ao carregar dados do Pokémon');
-                  }
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PokemonHero(
-                        pokemonName: widget.pokemonName,
-                      ),
-                      Card(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Nome: ${FormatOutput().capitalizeFirstLetter(pokemon!.name)}',
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                ),
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  GenericFutureBuilder<Pokemon>(
+                    future: pokemonService.getPokemon(widget.pokemonName),
+                    builder: (context, snapshot) {
+                      final pokemon = snapshot.data;
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(
+                                color: Colors.grey[300]!,
+                                width: 2,
                               ),
-                              Text(
-                                'Número: ${pokemon.number.toString()}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Habilidades:',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: pokemon.abilities
-                                    .map(
-                                      (ability) => Chip(
-                                        label: Text(
-                                          ability,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        backgroundColor: Colors.blueGrey[200],
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                              const SizedBox(height: 16),
-                              const Text(
-                                'Tipos:',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Wrap(
-                                spacing: 8,
-                                runSpacing: 8,
-                                children: pokemon.types
-                                    .map(
-                                      (type) => Chip(
-                                        label: Text(
-                                          type,
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                          ),
-                                        ),
-                                        backgroundColor: getColorByType(type),
-                                      ),
-                                    )
-                                    .toList(),
-                              ),
-                              const SizedBox(height: 16),
-                              Text(
-                                'Peso: ${pokemon.weight.toString()}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                              Text(
-                                'Altura: ${pokemon.height.toString()}',
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
+                            ),
+                            child: PokemonHero(
+                              pokemonName: widget.pokemonName,
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
+                          const SizedBox(height: 16),
+                          Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Nome: ${FormatOutput().capitalizeFirstLetter(pokemon!.name)}',
+                                    style: TextStyle(
+                                        fontStyle: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .fontStyle),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Número: ${pokemon.number.toString()}',
+                                    style: TextStyle(
+                                        fontStyle: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .fontStyle),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Habilidades:',
+                                    style: TextStyle(
+                                        fontStyle: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .fontStyle),
+                                  ),
+                                  WrapPokemonAbilitiesListWidget(
+                                      pokemon: pokemon),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Tipos:',
+                                    style: TextStyle(
+                                        fontStyle: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium!
+                                            .fontStyle),
+                                  ),
+                                  WrapPokemonTypesWidget(pokemon: pokemon),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Peso: ${pokemon.weight.toString()}Kg',
+                                    style: TextStyle(
+                                        fontStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .fontStyle),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    'Altura: ${pokemon.height.toString()}m',
+                                    style: TextStyle(
+                                      fontStyle: Theme.of(context)
+                                          .textTheme
+                                          .bodySmall!
+                                          .fontStyle,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Positioned(
+              bottom: 16,
+              right: 16,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  textStyle: Theme.of(context).textTheme.bodySmall,
+                ),
+                child: const Text('Voltar'),
+              ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Color? getColorByType(String type) {
-    switch (type) {
-      case 'grass':
-        return Colors.green;
-      case 'fire':
-        return Colors.red;
-      case 'water':
-        return Colors.blue;
-      case 'electric':
-        return Colors.yellow;
-      case 'ice':
-        return Colors.lightBlueAccent;
-      case 'fighting':
-        return Colors.red;
-      case 'poison':
-        return Colors.purple;
-      case 'ground':
-        return Colors.brown;
-      case 'flying':
-        return Colors.grey[400];
-      case 'psychic':
-        return Colors.pink;
-      case 'bug':
-        return Colors.lightGreen;
-      case 'rock':
-        return Colors.grey;
-      case 'ghost':
-        return Colors.indigo;
-      case 'dark':
-        return Colors.black87;
-      case 'dragon':
-        return Colors.indigoAccent;
-      case 'steel':
-        return Colors.blueGrey;
-      case 'fairy':
-        return Colors.pinkAccent;
-      default:
-        return Colors.grey;
-    }
   }
 }
