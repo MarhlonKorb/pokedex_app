@@ -39,3 +39,9 @@
 4. Execute o comando `flutter run` para iniciar o projeto no dispositivo.
 
 Certifique-se de ter o Flutter corretamente instalado e configurado em seu ambiente de desenvolvimento antes de seguir esses passos. Caso ocorram erros ou problemas, consulte a documentação oficial do Flutter em [https://flutter.dev/docs](https://flutter.dev/docs) para obter mais informações e soluções de problemas específicos.
+
+## Imagens
+
+!["list-page"](https://github.com/MarhlonKorb/pokedex_app/blob/master/assets/images/list-page.png)
+
+!["details-page"](https://github.com/MarhlonKorb/pokedex_app/blob/master/assets/images/detail-page.png)
