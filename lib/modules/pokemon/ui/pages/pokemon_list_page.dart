@@ -89,31 +89,22 @@ class PokemonListPageState extends State<PokemonListPage> {
                       ),
                     ),
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey[300]!,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: ListTile(
-                          title: Text(
-                            FormatOutput().capitalizeFirstLetter(pokemon.name!),
-                            style: Theme.of(context).textTheme.bodySmall,
-                            softWrap: true,
-                          ),
-                          leading: SizedBox(
-                            child: Column(
-                              children: [
-                                PokemonIconImage(
-                                  pokemonName: pokemon.name!,
-                                ),
-                              ],
-                            ),
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(4),
+                      child: ListTile(
+                        title: Text(
+                          FormatOutput().capitalizeFirstLetter(pokemon.name!),
+                          style: Theme.of(context).textTheme.bodySmall,
+                          softWrap: true,
+                        ),
+                        leading: SizedBox(
+                          child: Column(
+                            children: [
+                              PokemonIconImage(
+                                pokemonName: pokemon.name!,
+                              ),
+                            ],
                           ),
                         ),
                       ),
