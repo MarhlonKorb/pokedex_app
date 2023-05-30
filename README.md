@@ -45,3 +45,21 @@ Certifique-se de ter o Flutter corretamente instalado e configurado em seu ambie
 !["list-page"](https://github.com/MarhlonKorb/pokedex_app/blob/master/assets/images/list-page.png)
 
 !["details-page"](https://github.com/MarhlonKorb/pokedex_app/blob/master/assets/images/detail-page.png)
+
+## Dependências utilizadas
+
+``` 
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  flutter_dotenv: ^5.0.2
+  http: ^1.0.0
+  google_fonts: ^4.0.5
+```
+
+
